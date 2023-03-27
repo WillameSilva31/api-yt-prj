@@ -2,7 +2,7 @@ import { Request, Response } from 'express'
 import { pool } from '../../../mysql';
 import { v4 as uuidv4} from 'uuid';
 import { hash, compare } from 'bcrypt';
-import { sign } from 'jsonwebtoken';
+import { sign, verify } from 'jsonwebtoken';
 
 class UserRepository {
     create(request:Request, response:Response){
@@ -56,7 +56,33 @@ class UserRepository {
                     })
                 }
             )     
-        })       
+        })
+    }
+
+    getUser(request:any, response:any){
+        const decode:any = verify(request.headers.authorization, process.env.SECRET as string);
+        if (decode.email){
+            pool.getConnection((error, connection)=>{
+                connection.query(
+                    'SELECT * FROM users WHERE email=?',
+                    [decode.email],
+                    (error:any,results:any, fields:any) =>{
+                        connection.release();
+                        if(error){
+                            return response.status(400).send({error:error, response: null})
+                        }
+
+                        return response.status(202).send({
+                            user: {
+                                name: results[0].name,
+                                email: results[0].email,
+                                id: results[0].user_id,
+                            }
+                        })
+                    }
+                )
+            })
+        }
     }
 }
 
