@@ -1,0 +1,11 @@
+services:
+  db:
+    image: mysql
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_USER=mendes
+      - MYSQL_PASSWORD=mendes
+      - MYSQL_DATABASE=api-youtube-project
+      - MYSQL_ROOT_PASSWORD=mendes
+    container_name: db_api

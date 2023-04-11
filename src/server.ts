@@ -6,7 +6,6 @@ import { config } from 'dotenv';
 config();
 const app = express();
 
-
 const cors = require('cors');
 
 app.use(function(require,response, next){
@@ -25,5 +24,6 @@ app.use('/videos', videosRoutes);
 
 
 
-app.listen(4000);
+const PORT = 4000;
+app.listen(PORT, () => console.log(`App listen at http://localhost:${PORT}`));
 
