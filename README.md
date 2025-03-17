@@ -16,15 +16,8 @@ Este projeto é uma API para um clone do YouTube, permitindo a criação, busca 
     ```sh
     npm install
     ```
-4. Crie um arquivo `.env` na raiz do projeto e adicione as seguintes variáveis:
-    ```env
-    SECRET=segredo
-    USER_DATABASE=root
-    PASSWORD_DATABASE=Pr0gr4m3
-    DATABASE=api-youtube-project
-    HOST_DATABASE=localhost
-    PORT_DATABASE=3306
-    ```
+4. Crie um arquivo `.env` na raiz do projeto e adicione as seguintes variáveis do banco de dados
+    
 5. Execute o projeto em modo de desenvolvimento:
     ```sh
     npm run dev
