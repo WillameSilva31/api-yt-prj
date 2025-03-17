@@ -1,0 +1,16 @@
+{
+    "name": "projectnode in vercel",
+    "version": "2",
+    "public": true,
+    "build": {
+        "src": "./dist/server.js",
+        "use": "@vercel/node"
+    },
+    "routes": [
+        {
+            "src": "./{.*}",
+            "dest": "./dist/server.js"
+        }
+    ]
+  }
+  

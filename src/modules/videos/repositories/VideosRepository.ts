@@ -1,14 +1,17 @@
 import { Request, Response } from "express";
 import { pool } from "../../../mysql";
 import { v4 as uuidv4} from 'uuid';
+import { sign, verify } from 'jsonwebtoken';
+
 
 class VideosRepository {
+    
     create(request: Request, response:Response){
         const {title, description, user_id} = request.body;
         pool.getConnection((err:any, connection:any) =>{
             connection.query(
                 'INSERT INTO videos (video_id, user_id, title, description) VALUES (?, ?, ?, ?)',               
-                [uuidv4(), user_id, title, description ],
+                [uuidv4(), user_id, title, description],
                 (error:any, results:any, fileds:any) => {
                     connection.release();
                     if(error){
@@ -50,6 +53,7 @@ class VideosRepository {
             )
         })
     }
+    
 }
 
 export {VideosRepository};

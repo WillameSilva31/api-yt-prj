@@ -49,7 +49,7 @@ class UserRepository {
                             const token = sign({
                                 id: results[0].user_id,
                                 email: results[0].email
-                            },process.env.SECRET as string, {expiresIn: "1hr"})
+                            },process.env.SECRET as string, {expiresIn:'1d'})
 
                         return response.status(200).json({token:token, message: "autenticado!"})
                         }
@@ -72,12 +72,18 @@ class UserRepository {
                             return response.status(400).send({error:error, response: null})
                         }
 
+                        const token = sign({
+                            id: results[0].user_id,
+                            email: results[0].email
+                        },process.env.SECRET as string, {expiresIn:'1d'})
+
                         return response.status(202).send({
                             user: {
                                 name: results[0].name,
                                 email: results[0].email,
                                 id: results[0].user_id,
-                            }
+                            }, token
+                            
                         })
                     }
                 )
